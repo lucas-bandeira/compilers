@@ -1,54 +1,53 @@
-operadores = []
+tokens = []
 
 string = input("Digite um lexeme (uma tecla qualquer ou # para sair): ")
-s = string.replace(" ", "")
-tamanho = len(s)
+string_replaced = string.replace(" ", "")
+string_size = len(string_replaced)
 
 i = 0
 count = 1
-countOcurrencies = 0
+countOccurrences = 0
 
-while i < tamanho:
-    lexeme = s[i]
+while i < string_size:
+    lexeme = string_replaced[i]
     if lexeme == "+" or lexeme == "=" or lexeme == "*" or lexeme == "-":
-        if countOcurrencies == 0:
-            if s[i-1].isdigit():
-                operadores.append("<%s>" % s[0:i])
-                operadores.append("<%s>" % lexeme)
+        if countOccurrences == 0:
+            if string_replaced[i - 1].isdigit():
+                tokens.append("<%s>" % string_replaced[0:i])
+                tokens.append("<%s>" % lexeme)
                 i += 1
-                countOcurrencies = i
+                countOccurrences = i
             else:
-                operadores.append("<id, %s>" % count)
-                operadores.append("<%s>" % lexeme)
+                tokens.append("<id, %s>" % count)
+                tokens.append("<%s>" % lexeme)
                 i += 1
                 count += 1
-                countOcurrencies = i
+                countOccurrences = i
         else:
-            if s[i-1].isdigit():
-                operadores.append("<%s>" % s[countOcurrencies:i])
-                operadores.append("<%s>" % lexeme)
+            if string_replaced[i - 1].isdigit():
+                tokens.append("<%s>" % string_replaced[countOccurrences:i])
+                tokens.append("<%s>" % lexeme)
                 i += 1
-                countOcurrencies = i
+                countOccurrences = i
             else:
-                operadores.append("<id, %s>" % count)
-                operadores.append("<%s>" % lexeme)
+                tokens.append("<id, %s>" % count)
+                tokens.append("<%s>" % lexeme)
                 i += 1
                 count += 1
-                countOcurrencies = i
+                countOccurrences = i
 
-    elif (i + 1) == tamanho:
-        if s[i-1].isdigit():
-            operadores.append("<%s>" % s[countOcurrencies:i+1])
+    elif (i + 1) == string_size:
+        if string_replaced[i - 1].isdigit():
+            tokens.append("<%s>" % string_replaced[countOccurrences:i + 1])
             i += 1
-            countOcurrencies = i
+            countOccurrences = i
         else:
-            operadores.append("<id, %s>" % count)
+            tokens.append("<id, %s>" % count)
             i += 1
             count += 1
-            countOcurrencies = i
+            countOccurrences = i
 
     else:
         i += 1
 
-
-print("Operadores:", operadores)
+print("tokens:", tokens)
